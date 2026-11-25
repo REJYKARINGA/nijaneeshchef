@@ -133,25 +133,16 @@ dialog ul{margin:0;padding-left:20px;color:var(--label)}
 dialog .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 
 /* resume */
-.tl{margin-top:34px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-.axis{position:relative;height:26px}
-.axis span{position:absolute;top:0;transform:translateX(-50%);font-size:.76rem;color:var(--label);font-variant-numeric:tabular-nums}
-.axis span::after{content:"";position:absolute;left:50%;top:21px;height:5px;border-left:1px solid var(--line)}
-.lanes{display:grid;gap:9px;margin-top:4px}
-.lane{position:relative;height:36px;border-radius:9px;background:rgba(255,255,255,.05)}
-.seg{position:absolute;top:4px;bottom:4px;border:0;border-radius:7px;background:#5b5b5e;color:#fff;font-family:var(--body);font-size:.76rem;font-weight:700;padding:0 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:14px;transition:background .2s,transform .2s}
-.seg:hover,.seg[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);transform:scaleY(1.1)}
-@media (max-width:640px){.seg{font-size:0;padding:0}}
-.detail{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);min-height:92px}
-.detail h3{font-family:var(--display);font-weight:400;font-size:1.4rem;text-transform:uppercase}
-.detail .meta{color:var(--label);font-variant-numeric:tabular-nums}
-.list{margin-top:26px;border-top:1px solid var(--line)}
-.item{display:grid;grid-template-columns:200px 1fr auto;gap:16px;padding:15px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.item time{color:var(--label);font-size:.9rem;font-variant-numeric:tabular-nums}
-.item b{font-weight:700}
-.item small{display:block;color:var(--label)}
-.item .dur{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
-@media (max-width:620px){.item{grid-template-columns:1fr;gap:2px}}
+.list{margin-top:34px;position:relative;display:grid;gap:14px;padding-left:28px}
+.list::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.item{position:relative;display:grid;grid-template-columns:1fr auto;gap:4px 20px;align-items:center;padding:16px 20px;background:var(--glass);border:1px solid var(--line);border-radius:12px;transition:border-color .2s}
+.item:hover{border-color:var(--accent)}
+.item::before{content:"";position:absolute;left:-28px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.item b{font-weight:700;font-size:1.05rem}
+.item small{display:block;color:var(--label);margin-top:2px}
+.item time{grid-column:1;color:var(--label);font-size:.88rem;font-variant-numeric:tabular-nums}
+.item .dur{grid-column:2;grid-row:1/3;justify-self:end;padding:4px 12px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-size:.82rem;font-weight:700;white-space:nowrap}
+@media (max-width:620px){.item{grid-template-columns:1fr}.item .dur{grid-column:1;grid-row:auto;justify-self:start;margin-top:6px}}
 .edu{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
 @media (max-width:820px){.edu{grid-template-columns:1fr}}
 .edu div{border-left:4px solid var(--accent);padding:2px 0 2px 14px}
@@ -192,21 +183,22 @@ footer .wrap{position:relative;display:flex;flex-wrap:wrap;justify-content:space
 /* DEMO WATERMARK: always shown on top of everything, on every load */
 #demo-wm{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);pointer-events:auto}
 #demo-wm[hidden]{display:none}
-#demo-wm .wm-box{position:relative;text-align:center;padding:36px 48px;border-radius:14px;background:rgba(20,20,20,.88);border:1px solid rgba(255,255,255,.25);color:#fff;max-width:min(92vw,520px);font-family:system-ui,sans-serif}
-#demo-wm .wm-logo{max-width:220px;max-height:110px;margin:0 auto 14px;display:block}
+#demo-wm .wm-box{position:relative;text-align:center;padding:36px 48px;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.2);color:#111;max-width:min(92vw,520px);font-family:system-ui,sans-serif}
+#demo-wm .wm-logo{max-width:340px;width:100%;margin:0 auto 14px;display:block}
 #demo-wm .wm-brand{font-size:1.6rem;font-weight:700;letter-spacing:.12em;margin-bottom:10px}
 #demo-wm .wm-msg{font-size:1rem;line-height:1.5;opacity:.9}
-#demo-wm .wm-close{position:absolute;top:8px;right:8px;width:34px;height:34px;border:0;border-radius:50%;background:#fff;color:#111;font-size:20px;line-height:1;cursor:pointer}
-#demo-wm .wm-tile{position:absolute;inset:0;pointer-events:none;opacity:.12;overflow:hidden}
+#demo-wm .wm-close{position:absolute;top:8px;right:8px;width:34px;height:34px;border:0;border-radius:50%;background:#111;color:#fff;font-size:20px;line-height:1;cursor:pointer}
+#demo-tile{position:fixed;inset:0;z-index:2147483646;pointer-events:none;background-repeat:repeat}
 </style>
 </head>
 <body>
 <!-- DEMO WATERMARK: replace src below with your logo file (e.g. "my-logo.png"); remove the img line to show text only -->
+<div id="demo-tile" aria-hidden="true"></div>
 <div id="demo-wm" role="dialog" aria-label="Demo version notice">
   <div class="wm-box">
     <button class="wm-close" type="button" aria-label="Close watermark">&times;</button>
     <img class="wm-logo" src="my-logo.png" alt="" onerror="this.remove()">
-    <div class="wm-brand">YOUR LOGO</div>
+    <div class="wm-brand">DEMO</div>
     <div class="wm-msg">DEMO / PREVIEW VERSION<br>Not the final website. Do not use as live.</div>
   </div>
 </div>
@@ -292,12 +284,7 @@ footer .wrap{position:relative;display:flex;flex-wrap:wrap;justify-content:space
   <div class="wrap">
     <p class="label kicker">Resume</p>
     <h2 class="big">Experience</h2>
-    <p class="sub">Food &amp; Beverage Production, 2005 to 2015. Select a bar for the details.</p>
-    <div class="tl">
-      <div class="axis" id="axis" aria-hidden="true"></div>
-      <div class="lanes" id="lanes"></div>
-      <div class="detail" id="detail" aria-live="polite"></div>
-    </div>
+    <p class="sub">Food &amp; Beverage Production, 2005 to 2015. </p>
     <div class="list" id="list"></div>
     <div class="edu">
       <div><b>B.Sc Hotel Management &amp; Catering Technology</b><span>Vinayaka Missions University, first class</span></div>
@@ -403,26 +390,18 @@ footer .wrap{position:relative;display:flex;flex-wrap:wrap;justify-content:space
   $("#dClose").addEventListener("click",close);$("#dAsk").addEventListener("click",close);
   dlg.addEventListener("click",function(e){if(e.target===dlg)close()});
 
-  /* timeline */
-  var D=function(s){return new Date(s+"T00:00:00")},y0=2005,y1=2015,S=new Date(y0,0,1),E=new Date(y1+1,0,1),span=E-S;
-  var axis=$("#axis");for(var y=y0;y<=y1+1;y++){var t=document.createElement("span");t.style.left=((new Date(y,0,1)-S)/span*100)+"%";t.textContent=y;axis.appendChild(t)}
+  /* experience: simple vertical timeline, newest first */
+  var D=function(s){return new Date(s+"T00:00:00")};
   var mo=function(a,b){return Math.max(1,Math.round((b-a)/2629800000))};
   var dur=function(m){var y=Math.floor(m/12),r=m%12;return ((y?y+" yr ":"")+(r?r+" mo":"")).trim()||"1 mo"};
-  var fmt=new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"});
-  var lanes=$("#lanes"),list=$("#list"),det=$("#detail"),segs=[],total=0;
-  jobs.forEach(function(j,i){
-    var a=D(j.a),b=D(j.b),m=mo(a,b);j.m=m;total+=m;
-    var l=document.createElement("div");l.className="lane";
-    var s=document.createElement("button");s.type="button";s.className="seg";s.setAttribute("aria-pressed","false");
-    s.style.left=((a-S)/span*100)+"%";s.style.width=((b-a)/span*100)+"%";s.textContent=j.n;s.title=j.n+" ("+dur(m)+")";
-    s.addEventListener("click",function(){pick(i)});l.appendChild(s);lanes.appendChild(l);segs.push(s);
+  var fmt=new Intl.DateTimeFormat("en-GB",{month:"short",year:"numeric"});
+  var list=$("#list"),total=0;
+  jobs.forEach(function(j){var m=mo(D(j.a),D(j.b));j.m=m;total+=m});
+  jobs.slice().reverse().forEach(function(j){
     var it=document.createElement("div");it.className="item";
-    it.innerHTML="<time>"+fmt.format(a)+" – "+fmt.format(b)+"</time><div><b>"+j.n+"</b><small>"+j.r+", "+j.p+"</small></div><span class=\"dur\">"+dur(m)+"</span>";
+    it.innerHTML="<div><b>"+j.n+"</b><small>"+j.r+", "+j.p+"</small></div><time>"+fmt.format(D(j.a))+" – "+fmt.format(D(j.b))+"</time><span class=\"dur\">"+dur(j.m)+"</span>";
     list.appendChild(it);
   });
-  function pick(i){var j=jobs[i];segs.forEach(function(s,k){s.setAttribute("aria-pressed",k===i?"true":"false")});
-    det.innerHTML="<h3>"+j.n+"</h3><p class=\"meta\">"+j.r+" · "+j.p+" · "+fmt.format(D(j.a))+" to "+fmt.format(D(j.b))+" · "+dur(j.m)+"</p>"}
-  pick(3);
   $("#sMon").dataset.count=total;$("#sEmp").dataset.count=jobs.length;
 
   /* counters */
@@ -463,24 +442,51 @@ footer .wrap{position:relative;display:flex;flex-wrap:wrap;justify-content:space
 })();
 </script>
 <script>
-/* DEMO WATERMARK: nothing is stored (no cookie/localStorage), so it shows again on every open,
-   reload, back/forward (bfcache) and cached view. Closing only hides it until the next load. */
+/* DEMO WATERMARK
+   1) Pop-up: shows on every load (nothing is stored). X hides it, then it comes back every POPUP_AGAIN_SECONDS.
+   2) Background mark: a faint dark, transparent logo/text pattern over the whole screen, always on (even after X),
+      so any screenshot carries it. It ignores clicks, so the site stays usable.
+   Edit the 3 settings below. */
 (function(){
-  var wm=document.getElementById('demo-wm');
-  var html=wm.outerHTML, parent=wm.parentNode, next=wm.nextSibling;
-  function bind(el){
-    el.querySelector('.wm-close').addEventListener('click',function(){el.hidden=true;});
+  var LOGO="my-logo.png";          // your logo file (same folder as index.html)
+  var TEXT="WISHIGROVE DEMO";      // text shown under the logo
+  var POPUP_AGAIN_SECONDS=60;      // pop-up returns this long after the client closes it
+  var wm=document.getElementById('demo-wm'),tile=document.getElementById('demo-tile');
+  var wmHTML=wm.outerHTML,tileHTML=tile.outerHTML,timer;
+
+  function paint(img){
+    var c=document.createElement('canvas'),w=c.width=360,h=c.height=240,x=c.getContext('2d');
+    x.translate(w/2,h/2);x.rotate(-Math.PI/7);x.textAlign='center';x.textBaseline='middle';
+    var y=0;
+    if(img){var r=Math.min(200/img.width,56/img.height);var iw=Math.round(img.width*r),ih=Math.round(img.height*r);
+      var k=document.createElement('canvas');k.width=iw;k.height=ih;var kx=k.getContext('2d');
+      kx.drawImage(img,0,0,iw,ih);kx.globalCompositeOperation='source-in';kx.fillStyle='rgba(0,0,0,.30)';kx.fillRect(0,0,iw,ih); // black silhouette
+      x.drawImage(k,-iw/2,-ih/2-14);y=ih/2+6}
+    x.font='700 18px system-ui,sans-serif';
+    x.lineWidth=3;x.strokeStyle='rgba(255,255,255,.10)';x.strokeText(TEXT,0,y);   // light edge so it shows on dark areas
+    x.fillStyle='rgba(0,0,0,.30)';x.fillText(TEXT,0,y);                           // transparent black
+    var t=document.getElementById('demo-tile');
+    if(t)t.style.backgroundImage='url('+c.toDataURL()+')';
   }
-  bind(wm);
-  window.addEventListener('pageshow',function(){ // restored from cache -> show again
-    var el=document.getElementById('demo-wm'); if(el) el.hidden=false;
-  });
-  // If someone deletes it via dev tools, put it back
+  function build(){
+    paint();
+    var i=new Image();i.onload=function(){paint(i)};i.src=LOGO;
+  }
+  function show(){var e=document.getElementById('demo-wm');if(e)e.hidden=false}
+  function bind(e){
+    var img=e.querySelector('.wm-logo');if(img)img.src=LOGO;
+    e.querySelector('.wm-close').addEventListener('click',function(){
+      e.hidden=true;clearTimeout(timer);timer=setTimeout(show,POPUP_AGAIN_SECONDS*1000);
+    });
+  }
+  bind(wm);build();
+  window.addEventListener('pageshow',function(){show();build()}); // restored from cache -> show again
+
+  // If removed via dev tools, put both layers back
   new MutationObserver(function(){
-    if(!document.getElementById('demo-wm')){
-      var t=document.createElement('div'); t.innerHTML=html;
-      var el=t.firstChild; document.body.insertBefore(el,document.body.firstChild); bind(el);
-    }
+    var t;
+    if(!document.getElementById('demo-tile')){t=document.createElement('div');t.innerHTML=tileHTML;document.body.insertBefore(t.firstChild,document.body.firstChild);build()}
+    if(!document.getElementById('demo-wm')){t=document.createElement('div');t.innerHTML=wmHTML;var e=t.firstChild;document.body.insertBefore(e,document.body.firstChild);bind(e)}
   }).observe(document.body,{childList:true});
 })();
 </script>

@@ -189,9 +189,27 @@ footer .wrap{position:relative;display:flex;flex-wrap:wrap;justify-content:space
 .rise{animation:rise .8s both}
 @keyframes rise{from{opacity:.001;transform:translateY(20px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+/* DEMO WATERMARK: always shown on top of everything, on every load */
+#demo-wm{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);pointer-events:auto}
+#demo-wm[hidden]{display:none}
+#demo-wm .wm-box{position:relative;text-align:center;padding:36px 48px;border-radius:14px;background:rgba(20,20,20,.88);border:1px solid rgba(255,255,255,.25);color:#fff;max-width:min(92vw,520px);font-family:system-ui,sans-serif}
+#demo-wm .wm-logo{max-width:220px;max-height:110px;margin:0 auto 14px;display:block}
+#demo-wm .wm-brand{font-size:1.6rem;font-weight:700;letter-spacing:.12em;margin-bottom:10px}
+#demo-wm .wm-msg{font-size:1rem;line-height:1.5;opacity:.9}
+#demo-wm .wm-close{position:absolute;top:8px;right:8px;width:34px;height:34px;border:0;border-radius:50%;background:#fff;color:#111;font-size:20px;line-height:1;cursor:pointer}
+#demo-wm .wm-tile{position:absolute;inset:0;pointer-events:none;opacity:.12;overflow:hidden}
 </style>
 </head>
 <body>
+<!-- DEMO WATERMARK: replace src below with your logo file (e.g. "my-logo.png"); remove the img line to show text only -->
+<div id="demo-wm" role="dialog" aria-label="Demo version notice">
+  <div class="wm-box">
+    <button class="wm-close" type="button" aria-label="Close watermark">&times;</button>
+    <img class="wm-logo" src="my-logo.png" alt="" onerror="this.remove()">
+    <div class="wm-brand">YOUR LOGO</div>
+    <div class="wm-msg">DEMO / PREVIEW VERSION<br>Not the final website. Do not use as live.</div>
+  </div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div id="progress" aria-hidden="true"></div>
 
@@ -442,6 +460,28 @@ footer .wrap{position:relative;display:flex;flex-wrap:wrap;justify-content:space
     out.textContent=draft;out.classList.add("show");cm.hidden=false;say("Message ready. Copy it and email nijaneesh@gmail.com");
   });
   cm.addEventListener("click",function(){copy(draft)});
+})();
+</script>
+<script>
+/* DEMO WATERMARK: nothing is stored (no cookie/localStorage), so it shows again on every open,
+   reload, back/forward (bfcache) and cached view. Closing only hides it until the next load. */
+(function(){
+  var wm=document.getElementById('demo-wm');
+  var html=wm.outerHTML, parent=wm.parentNode, next=wm.nextSibling;
+  function bind(el){
+    el.querySelector('.wm-close').addEventListener('click',function(){el.hidden=true;});
+  }
+  bind(wm);
+  window.addEventListener('pageshow',function(){ // restored from cache -> show again
+    var el=document.getElementById('demo-wm'); if(el) el.hidden=false;
+  });
+  // If someone deletes it via dev tools, put it back
+  new MutationObserver(function(){
+    if(!document.getElementById('demo-wm')){
+      var t=document.createElement('div'); t.innerHTML=html;
+      var el=t.firstChild; document.body.insertBefore(el,document.body.firstChild); bind(el);
+    }
+  }).observe(document.body,{childList:true});
 })();
 </script>
 </body>

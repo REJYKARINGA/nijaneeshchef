@@ -11,11 +11,15 @@ export default function SplashLoader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    // keep the page still while the splash is up (an #anchor in the URL would otherwise scroll it underneath)
+    const root = document.documentElement;
+    const prev = root.style.overflow;
+    root.style.overflow = "hidden";
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const wait = reduce ? 400 : DURATION;
     const t1 = setTimeout(() => setLeaving(true), wait);
-    const t2 = setTimeout(() => setDone(true), wait + 700);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const t2 = setTimeout(() => { setDone(true); root.style.overflow = prev; }, wait + 900);
+    return () => { clearTimeout(t1); clearTimeout(t2); root.style.overflow = prev; };
   }, []);
 
   if (done) return null;

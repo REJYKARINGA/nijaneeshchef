@@ -17,9 +17,6 @@ export const metadata = {
   twitter: { card: "summary_large_image", title: "NIJANEESH", description: DESC, images: ["/og-image.jpg"] },
   description:
     "Nijaneesh, Assistant Manager (Dietary Department), Regional Cancer Centre, Medical College, Trivandrum. Business, hospitality and collaboration.",
-  icons: {
-    icon: "https://www.nijaneeshchef.com/wp-content/uploads/2024/10/cropped-WhatsApp-Image-2024-10-26-at-9.34.26-AM-270x270.jpeg",
-  },
 };
 
 export const viewport = { width: "device-width", initialScale: 1 };

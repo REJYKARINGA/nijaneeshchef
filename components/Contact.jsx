@@ -47,8 +47,24 @@ export default function Contact({ areaNames }) {
             <div className="cimg"><img src="https://www.nijaneeshchef.com/wp-content/uploads/2024/11/contact1.png" alt="Contact" onError={(e) => (e.currentTarget.parentNode.style.display = "none")} /></div>
             <h2>Contact with me</h2>
             <p className="sub">Call, write, or draft a message here. Freelance work and partnerships are welcome.</p>
-            <div className="method"><div><small>Phone</small>9995099969</div><button className="copy" type="button" onClick={() => copy("9995099969")}>Copy</button></div>
-            <div className="method"><div><small>Email</small>nijaneesh@gmail.com</div><button className="copy" type="button" onClick={() => copy("nijaneesh@gmail.com")}>Copy</button></div>
+            <div className="gt-cards">
+              <div className="gt-card">
+                <a className="gt-main" href="tel:+919995099969">
+                  <span className="gt-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="#16A34A" stroke="#16A34A" strokeWidth="1" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg></span>
+                  <span className="gt-txt"><small>Phone</small>9995099969</span>
+                  <span className="gt-go" aria-hidden="true">&rarr;</span>
+                </a>
+                <button className="copy" type="button" onClick={() => copy("9995099969")}>Copy</button>
+              </div>
+              <div className="gt-card">
+                <a className="gt-main" href="mailto:nijaneesh@gmail.com">
+                  <span className="gt-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="#EA4335" aria-hidden="true"><path d="M24 4.5v15c0 .825-.675 1.5-1.5 1.5H18V9.75l-6 5.25-6-5.25V21H1.5C.675 21 0 20.325 0 19.5v-15c0-.825.675-1.5 1.5-1.5h.75L12 11.25 21.75 3h.75c.825 0 1.5.675 1.5 1.5z" /></svg></span>
+                  <span className="gt-txt"><small>Email</small>nijaneesh@gmail.com</span>
+                  <span className="gt-go" aria-hidden="true">&rarr;</span>
+                </a>
+                <button className="copy" type="button" onClick={() => copy("nijaneesh@gmail.com")}>Copy</button>
+              </div>
+            </div>
           </div>
           <form onSubmit={submit} noValidate>
             <label htmlFor="fn">Your name<input id="fn" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} /><span className="err">{errs.n}</span></label>

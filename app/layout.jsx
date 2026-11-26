@@ -1,7 +1,20 @@
 import "./globals.css";
 
+const DESC =
+  "Nijaneesh, Assistant Manager (Dietary Department), Regional Cancer Centre, Medical College, Trivandrum. Business, hospitality and collaboration.";
+
 export const metadata = {
+  metadataBase: new URL("https://nijaneeshchef.vercel.app"),
   title: "NIJANEESH",
+  openGraph: {
+    title: "NIJANEESH",
+    description: DESC,
+    url: "/",
+    siteName: "NIJANEESH",
+    type: "website",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Chef Nijaneesh in a black chef coat plating a dish" }],
+  },
+  twitter: { card: "summary_large_image", title: "NIJANEESH", description: DESC, images: ["/og-image.jpg"] },
   description:
     "Nijaneesh, Assistant Manager (Dietary Department), Regional Cancer Centre, Medical College, Trivandrum. Business, hospitality and collaboration.",
   icons: {

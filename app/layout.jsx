@@ -1,4 +1,5 @@
 import "./globals.css";
+import SplashLoader from "../components/SplashLoader";
 
 const DESC =
   "Nijaneesh, Assistant Manager (Dietary Department), Regional Cancer Centre, Medical College, Trivandrum. Business, hospitality and collaboration.";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body suppressHydrationWarning>
+        <SplashLoader />
         {children}
       </body>
     </html>

@@ -184,7 +184,8 @@ textarea{min-height:110px;resize:vertical}
 
 footer{position:relative;margin-top:30px;color:#e8edf2;font-size:.88rem;background:var(--footer) center/cover no-repeat;border-radius:0;overflow:hidden}
 footer::before{content:"";position:absolute;inset:0;background:rgba(10,10,12,.88)}
-footer .wrap{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:26px;padding-bottom:26px}
+footer .wrap{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding-top:30px;padding-bottom:84px}
+footer .social{justify-content:center}
 
 footer .powered{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#cbd5e1;font-size:.82rem}
 footer .powered img{height:26px;width:auto;background:#fff;border-radius:8px;padding:4px 10px}

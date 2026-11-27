@@ -291,3 +291,9 @@ html{scroll-padding-top:104px}
 
 @media(max-width:480px){.gt-card{padding:12px;gap:8px}.gt-main{gap:10px}.gt-txt{font-size:.88rem;overflow-wrap:normal}}
 @media(max-width:360px){.gt-go{display:none}.gt-txt{font-size:.82rem}.gt-ico{width:34px;height:34px}.gt-ico svg{width:18px;height:18px}}
+
+/* contact form: WhatsApp / Email tabs */
+.ct-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}
+.ct-tab{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.ct-tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.btn.primary.wa-send{background:var(--wa);border-color:var(--wa);color:#fff}

@@ -1,4 +1,4 @@
-const U = "https://www.nijaneeshchef.com/wp-content/uploads/2024/11/";
+const U = "/img/";
 
 export const areas = [
   { name: "Pets", cat: "retail", img: U + "k.jpg", tag: "Retail",

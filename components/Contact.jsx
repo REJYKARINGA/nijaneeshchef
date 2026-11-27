@@ -8,7 +8,12 @@ export default function Contact({ areaNames }) {
   const [interest, setInterest] = useState(options[0]);
   const [name, setName] = useState("");
   const [msg, setMsg] = useState("");
-  const [errs, setErrs] = useState({ n: "", m: "" });
+  const [contact, setContact] = useState("");
+  const [phone, setPhone] = useState("");
+  const [subject, setSubject] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [errs, setErrs] = useState({ n: "", c: "", m: "" });
   const [draft, setDraft] = useState("");
   const [toast, setToast] = useState("");
   const tm = useRef();
@@ -30,13 +35,46 @@ export default function Contact({ areaNames }) {
     catch { say("Select the text and copy it manually"); }
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const n = name.trim(), m = msg.trim();
-    setErrs({ n: n ? "" : "Enter your name.", m: m.length >= 10 ? "" : "Write at least 10 characters so I know how to help." });
-    if (!n || m.length < 10) return;
-    setDraft(`Subject: ${interest} enquiry from ${n}\n\nHello Nijaneesh,\n\n${m}\n\nRegards,\n${n}`);
-    say("Message ready. Copy it and email nijaneesh@gmail.com");
+    const n = name.trim(), m = msg.trim(), c = contact.trim(), p = phone.trim(), s = subject.trim() || `${interest} enquiry`;
+    const okContact = /^\S+@\S+\.\S+$/.test(c);
+    setErrs({
+      n: n ? "" : "Enter your name.",
+      c: okContact ? "" : "Enter a valid email address so I can reply.",
+      m: m.length >= 10 ? "" : "Write at least 10 characters so I know how to help.",
+    });
+    if (!n || !okContact || m.length < 10) return;
+    setSending(true);
+    setSent(false);
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/nijaneesh@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: s,
+          _template: "table",
+          _captcha: "false",
+          _replyto: c,
+          Name: n,
+          Email: c,
+          Phone: p,
+          Subject: s,
+          Interest: interest,
+          Message: m,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === "false") throw new Error("send failed");
+      setSent(true);
+      setName(""); setContact(""); setPhone(""); setSubject(""); setMsg(""); setDraft("");
+      say("Thank you. Your message has been sent.");
+    } catch {
+      setDraft(`Subject: ${s}\n\nHello Nijaneesh,\n\n${m}\n\nRegards,\n${n}\n${c}${p ? "\n" + p : ""}`);
+      say("Could not send. Copy the message and email nijaneesh@gmail.com");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -44,7 +82,7 @@ export default function Contact({ areaNames }) {
       <section id="contact" className="contact">
         <div className="wrap">
           <div>
-            <div className="cimg"><img src="https://www.nijaneeshchef.com/wp-content/uploads/2024/11/contact1.png" alt="Contact" onError={(e) => (e.currentTarget.parentNode.style.display = "none")} /></div>
+            <div className="cimg"><img src="/img/contact1.png" alt="Contact" onError={(e) => (e.currentTarget.parentNode.style.display = "none")} /></div>
             <h2>Let’s plan your next meal</h2>
             <p className="sub">Planning a family meal, a celebration or a menu for your guests? Call, write, or draft a message here and let’s talk food.</p>
             <div className="gt-cards">
@@ -68,14 +106,17 @@ export default function Contact({ areaNames }) {
           </div>
           <form onSubmit={submit} noValidate>
             <label htmlFor="fn">Your name<input id="fn" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} /><span className="err">{errs.n}</span></label>
+            <label htmlFor="fc">Your email<input id="fc" type="email" autoComplete="email" value={contact} onChange={(e) => setContact(e.target.value)} /><span className="err">{errs.c}</span></label>
+            <label htmlFor="fp">Phone number<input id="fp" type="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></label>
+            <label htmlFor="fs">Subject<input id="fs" value={subject} placeholder={`${interest} enquiry`} onChange={(e) => setSubject(e.target.value)} /></label>
             <label htmlFor="ft">I’m interested in
               <select id="ft" value={interest} onChange={(e) => setInterest(e.target.value)}>
                 {options.map((o) => <option key={o}>{o}</option>)}
               </select>
             </label>
             <label htmlFor="fm">Message<textarea id="fm" value={msg} onChange={(e) => setMsg(e.target.value)} /><span className="err">{errs.m}</span></label>
-            <button className="btn primary" type="submit" style={{ justifyContent: "center" }}>Write my message</button>
-            <div className={"output" + (draft ? " show" : "")} role="status">{draft}</div>
+            <button className="btn primary" type="submit" disabled={sending} style={{ justifyContent: "center" }}>{sending ? "Sending..." : "Send message"}</button>
+            <div className={"output" + (sent || draft ? " show" : "")} role="status">{sent ? "Thank you. Your message has been sent. I will get back to you soon." : draft}</div>
             <button className="btn ghost" type="button" hidden={!draft} style={{ justifyContent: "center" }} onClick={() => copy(draft)}>Copy message to email it</button>
           </form>
         </div>

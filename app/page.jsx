@@ -22,9 +22,9 @@ export default function Page() {
       </main>
       <footer id="foot" style={{ backgroundImage: "url('/img/1eefc5567dc5c55f67ef6849b9235582.jpg')" }}>
         <div className="wrap">
+          <span>Copyright © 2024 · Trivandrum, Kerala</span>
           <div className="social" aria-label="Social profiles"><SocialLinks /></div>
           <a className="powered" href="https://www.wishigrove.com" target="_blank" rel="noopener noreferrer"><span>Powered by</span><img src="/wishigrove-logo.png" alt="WishiGrove" height="26" /></a>
-          <span>Copyright © 2024 · Trivandrum, Kerala</span>
         </div>
       </footer>
     </>

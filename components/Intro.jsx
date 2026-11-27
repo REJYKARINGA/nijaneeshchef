@@ -2,24 +2,16 @@
 import { useEffect, useState } from "react";
 
 const FULL = "NIJANEESH";
-// first image is the main (priority) one
-const PHOTOS = [
-  { src: "/chef-black-coat.png", alt: "Chef Nijaneesh in a black chef coat plating a dish", pos: "50% 30%" },
-  { src: "/chef-white-coat.png", alt: "Chef Nijaneesh in a white chef coat in a professional kitchen", pos: "50% 25%" },
-  { src: "/chef-apron.png", alt: "Chef Nijaneesh in an apron cooking in a busy kitchen", pos: "50% 25%" },
+
+// mosaic: the black coat photo is the main (big) one
+const MAIN = { src: "/chef-black-coat.png", alt: "Chef Nijaneesh in a black chef coat plating a dish", pos: "50% 28%" };
+const SIDE = [
+  { src: "/chef-white-coat.png", alt: "Chef Nijaneesh in a white chef coat in a professional kitchen", pos: "50% 22%" },
+  { src: "/chef-apron.png", alt: "Chef Nijaneesh in an apron cooking in a busy kitchen", pos: "50% 22%" },
 ];
 
 export default function Intro() {
   const [n, setN] = useState(FULL.length);
-  const [cur, setCur] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  // slow auto-rotate, main image stays on screen longest
-  useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setTimeout(() => setCur((c) => (c + 1) % PHOTOS.length), cur === 0 ? 6000 : 3500);
-    return () => clearTimeout(t);
-  }, [cur, paused]);
 
   // typing name, like the live site
   useEffect(() => {
@@ -37,39 +29,37 @@ export default function Intro() {
   }, []);
 
   return (
-    <section className="intro" id="about" style={{ paddingTop: 56 }}>
-      <div className="wrap" id="top">
-        <div className="rise">
+    <section className="intro" id="about">
+      <div className="wrap hero" id="top">
+        {/* top: heading */}
+        <div className="hero-top rise">
           <p className="label welcome">Family-Friendly Chef</p>
           <h1 className="hi">Welcome to <span className="name">My Kitchen</span></h1>
           <p className="tagline">Good Food, Happy Families, Beautiful Memories!</p>
+        </div>
+
+        {/* middle: photo mosaic */}
+        <div className="mosaic rise" style={{ animationDelay: ".12s" }}>
+          <img className="m-main" src={MAIN.src} alt={MAIN.alt} style={{ objectPosition: MAIN.pos }} fetchPriority="high" />
+          {SIDE.map((p, i) => (
+            <img key={p.src} className={"m-side m-side-" + (i + 1)} src={p.src} alt={p.alt} style={{ objectPosition: p.pos }} loading="lazy" />
+          ))}
+          <span className="m-badge">Chef <b>{FULL.slice(0, n) || "​"}</b><i className="caret" aria-hidden="true" /></span>
+        </div>
+
+        {/* bottom: story, role, actions */}
+        <div className="hero-bottom rise" style={{ animationDelay: ".2s" }}>
           <p className="about">Welcome to my culinary world, where passion meets flavour and every meal is prepared with love. As a family-friendly chef, I believe that food brings people together. My goal is to create delicious, healthy and comforting meals that everyone in the family can enjoy.</p>
-          <p className="chefname">Chef <b>{FULL.slice(0, n) || "​"}</b><span className="caret" aria-hidden="true" /></p>
-          <p className="role">Assistant Manager (Dietary Department)<br />Regional Cancer Centre<br />Medical College, Trivandrum</p>
-          <h2 className="label find">Find me</h2>
-          <div className="social" aria-label="Social profiles">
-            <a className="fb" href="#contact" aria-label="Facebook">f</a>
-            <a className="tw" href="#contact" aria-label="Twitter">t</a>
-            <a className="yt" href="#contact" aria-label="YouTube">▶</a>
-          </div>
+          <p className="role">Assistant Manager (Dietary Department) · Regional Cancer Centre, Medical College, Trivandrum</p>
           <div className="status"><span className="dot" aria-hidden="true" />Available for freelance work</div>
           <div className="cta">
             <a className="btn primary" href="#contact">Plan a meal with me</a>
             <a className="btn ghost" href="#resume">My experience</a>
           </div>
-        </div>
-        <div className="gallery rise" style={{ animationDelay: ".15s" }} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-          <div className="photo">
-            {PHOTOS.map((p, i) => (
-              <img key={p.src} src={p.src} alt={p.alt} className={i === cur ? "on" : undefined} style={{ objectPosition: p.pos }} fetchPriority={i === 0 ? "high" : undefined} loading={i === 0 ? "eager" : "lazy"} />
-            ))}
-          </div>
-          <div className="thumbs" role="group" aria-label="Photos">
-            {PHOTOS.map((p, i) => (
-              <button key={p.src} type="button" className={i === cur ? "on" : undefined} aria-label={`Show photo ${i + 1}`} aria-pressed={i === cur} onClick={() => setCur(i)}>
-                <img src={p.src} alt="" style={{ objectPosition: p.pos }} />
-              </button>
-            ))}
+          <div className="social" aria-label="Social profiles">
+            <a className="fb" href="#contact" aria-label="Facebook">f</a>
+            <a className="tw" href="#contact" aria-label="Twitter">t</a>
+            <a className="yt" href="#contact" aria-label="YouTube">▶</a>
           </div>
         </div>
       </div>

@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 
+const UPDATED = new Intl.DateTimeFormat("en-IN", {
+  day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
+}).format(new Date(process.env.NEXT_PUBLIC_BUILD_TIME || Date.now())) + " IST";
+
 const LINKS = [["#about", "Home"], ["#business", "Business"], ["#resume", "Resume"], ["#contact", "Contact"]];
 
 /* sticky bar with scroll progress, active link, WhatsApp button and back-to-top button */
@@ -46,6 +50,10 @@ export default function Chrome() {
       <a className="skip" href="#main">Skip to content</a>
       <div id="progress" aria-hidden="true" style={{ width: pct + "%" }} />
       <header className="bar">
+        <div className="preview-note" role="status">
+          <span className="tag">Client preview</span>
+          <span>Latest update: {UPDATED}</span>
+        </div>
         <div className="wrap">
           <a className="logo" href="#top">NIJANEESH<span>CHEF</span></a>
           <button className="theme-toggle" type="button" aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} onClick={toggleTheme}>

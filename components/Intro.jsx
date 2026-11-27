@@ -40,12 +40,13 @@ export default function Intro() {
     <section className="intro" id="about" style={{ paddingTop: 56 }}>
       <div className="wrap" id="top">
         <div className="rise">
-          <p className="label welcome">Chef · Hospitality · Business</p>
-          <h1 className="hi">Food, <span className="name">crafted with care.</span></h1>
+          <p className="label welcome">Family-Friendly Chef</p>
+          <h1 className="hi">Welcome to <span className="name">My Kitchen</span></h1>
+          <p className="tagline">Good Food, Happy Families, Beautiful Memories!</p>
+          <p className="about">Welcome to my culinary world, where passion meets flavour and every meal is prepared with love. As a family-friendly chef, I believe that food brings people together. My goal is to create delicious, healthy and comforting meals that everyone in the family can enjoy.</p>
           <p className="chefname">Chef <b>{FULL.slice(0, n) || "​"}</b><span className="caret" aria-hidden="true" /></p>
           <p className="role">Assistant Manager (Dietary Department)<br />Regional Cancer Centre<br />Medical College, Trivandrum</p>
-          <p className="about">I’m passionate about Business and I’m always looking for opportunities to collaborate and share insights. I’m looking forward to connecting with all of you!</p>
-          <h2 className="label find">Find with me</h2>
+          <h2 className="label find">Find me</h2>
           <div className="social" aria-label="Social profiles">
             <a className="fb" href="#contact" aria-label="Facebook">f</a>
             <a className="tw" href="#contact" aria-label="Twitter">t</a>
@@ -53,8 +54,8 @@ export default function Intro() {
           </div>
           <div className="status"><span className="dot" aria-hidden="true" />Available for freelance work</div>
           <div className="cta">
-            <a className="btn primary" href="#contact">Connect with me</a>
-            <a className="btn ghost" href="#resume">See my resume</a>
+            <a className="btn primary" href="#contact">Plan a meal with me</a>
+            <a className="btn ghost" href="#resume">My experience</a>
           </div>
         </div>
         <div className="gallery rise" style={{ animationDelay: ".15s" }} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>

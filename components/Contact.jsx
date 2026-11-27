@@ -45,8 +45,8 @@ export default function Contact({ areaNames }) {
         <div className="wrap">
           <div>
             <div className="cimg"><img src="https://www.nijaneeshchef.com/wp-content/uploads/2024/11/contact1.png" alt="Contact" onError={(e) => (e.currentTarget.parentNode.style.display = "none")} /></div>
-            <h2>Contact with me</h2>
-            <p className="sub">Call, write, or draft a message here. Freelance work and partnerships are welcome.</p>
+            <h2>Let’s plan your next meal</h2>
+            <p className="sub">Planning a family meal, a celebration or a menu for your guests? Call, write, or draft a message here and let’s talk food.</p>
             <div className="gt-cards">
               <div className="gt-card">
                 <a className="gt-main" href="tel:+919995099969">

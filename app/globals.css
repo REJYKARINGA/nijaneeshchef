@@ -251,3 +251,16 @@ html[data-theme="dark"] .theme-toggle .moon{display:none}
 .splash-line i{display:block;height:100%;background:var(--accent);transform-origin:left center;animation:splashFill 1500ms cubic-bezier(.65,0,.35,1) forwards}
 @keyframes splashIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes splashFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* friendly chef copy */
+.tagline{font-family:var(--display);font-weight:600;font-size:clamp(1.05rem,2.6vw,1.3rem);color:var(--accent-text);margin:0 0 14px}
+.points{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+@media (max-width:900px){.points{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.points{grid-template-columns:1fr}}
+.point{padding:22px 20px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,border-color .25s,box-shadow .25s}
+.point:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:var(--shadow-lg)}
+.point .pi{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--soft);font-size:1.4rem;margin-bottom:14px}
+.point h3{font-size:1.05rem;margin-bottom:6px}
+.point p{font-size:.9rem;color:var(--muted)}
+.closing{margin-top:34px;text-align:center;font-family:var(--display);font-size:1.15rem;font-weight:600}
+.closing a{color:var(--accent-text);text-underline-offset:4px}

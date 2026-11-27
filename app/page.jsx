@@ -1,6 +1,7 @@
 import Chrome from "../components/Chrome";
 import Intro from "../components/Intro";
 import Stats from "../components/Stats";
+import Welcome from "../components/Welcome";
 import Business from "../components/Business";
 import Resume from "../components/Resume";
 import Contact from "../components/Contact";
@@ -13,6 +14,7 @@ export default function Page() {
       <main id="main">
         <Intro />
         <Stats employers={jobs.length} areas={areas.length} months={totalMonths} />
+        <Welcome />
         <Business areas={areas} />
         <Resume jobs={jobs} />
         <Contact areaNames={areas.map((a) => a.name)} />

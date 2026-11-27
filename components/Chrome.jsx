@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import SocialLinks from "./Social";
 
 const UPDATED = new Intl.DateTimeFormat("en-IN", {
   day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
@@ -63,9 +64,15 @@ export default function Chrome() {
           <button className="menu-toggle" type="button" aria-label="Menu" aria-expanded={menu} aria-controls="main-nav" onClick={() => setMenu((m) => !m)}><span /></button>
           <button className={"menu-overlay" + (menu ? " open" : "")} type="button" aria-label="Close menu" tabIndex={-1} onClick={() => setMenu(false)} />
           <nav id="main-nav" aria-label="Main" className={menu ? "open" : undefined}>
+            <div className="nav-head"><a className="logo" href="#top" onClick={() => setMenu(false)}>NIJANEESH<span>CHEF</span></a></div>
             {LINKS.map(([href, label], i) => (
               <a key={href} href={href} className={i === active ? "active" : undefined} onClick={() => setMenu(false)}>{label}</a>
             ))}
+            <div className="nav-foot">
+              <div className="nav-update"><span className="tag">Client preview</span><span>Latest update: {UPDATED}</span></div>
+              <div className="social" aria-label="Social profiles"><SocialLinks /></div>
+              <a className="powered" href="https://www.wishigrove.com" target="_blank" rel="noopener noreferrer"><span>Powered by</span><img src="/wishigrove-logo.png" alt="WishiGrove" height="22" /></a>
+            </div>
           </nav>
         </div>
       </header>
